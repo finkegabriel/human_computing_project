@@ -1,0 +1,29 @@
+{
+  "name": "human_project",
+  "version": "0.6.0",
+  "description": "human_project computing for research",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --inspect index.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "iot",
+    "json-rpc",
+    "ngrok",
+    "websocket",
+    "mqtt"
+  ],
+  "author": "Gabriel Finke",
+  "license": "ISC",
+  "dependencies": {
+    "b64id": "^1.0.0",
+    "debug": "^4.3.1",
+    "mqtt": "^4.2.6",
+    "rawr": "^0.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
