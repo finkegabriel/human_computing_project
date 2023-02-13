@@ -7,6 +7,7 @@ const debugError = require('debug')('hsync:error');
 const { createRPCPeer, createServerReplyPeer } = require('./lib/rpc');
 const createWebHandler = require('./lib/web-handler');
 const createSocketListenHandler = require('./lib/socket-listen-handler');
+const createPorthandler = require('./lib/port-handler');
 
 debug.color = 3;
 debugVerbose.color = 2;
@@ -44,6 +45,9 @@ function createHsync(config) {
   const webHandler = config.webHandler || createWebHandler({myHostName, localHost, port, mqConn});
   hsyncClient.webHandler = webHandler;
 
+  const portHandler = createPorthandler({myHostName,localHost,port,mqConn})
+  hsyncClient.portHandler = portHandler
+
   mqConn.on('connect', () => {
     const now = Date.now();
     debug('connected to', myHostName, lastConnect ? (now - lastConnect) : '', lastConnect ? 'since last connect' : '');
@@ -65,6 +69,9 @@ function createHsync(config) {
     if (name === 'web') {
       webHandler.handleWebRequest(hostName, segment3, action, message);
       return;
+    }else if(name==='port'){
+      portHandler.handlePortRequest(hostName,segment3,action,message);
+      console.log("in port");
     } else if (name === 'msg') {
       const from = segment3;
       if (action === 'json') {
