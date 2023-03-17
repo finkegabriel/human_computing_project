@@ -4,6 +4,7 @@ import argparse
 import time
 import math
 import subprocess
+import jobs as job
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--command',help='command to be computed')
@@ -12,11 +13,14 @@ args = vars(parser.parse_args())
 
 print(args)
 
-if args['is_parllel']=='false':
-    print("Running: ",args['command'])
-    subprocess.run([args['command']],shell=True)
-else:
-    with Pool() as pool:
-        result = pool.map(0,args['command']) #where 0 is, put job queue where the command in the second argument will process
+
+if __name__ == '__main__':
+    if args['is_parllel']=='false':
+        print("Running: ",args['command'])
+        subprocess.run([args['command']],shell=True)
+    else:
+        p = Process(target=job.create_job,args=([args['command']],))
+        p.start()
+        p.join()
 
 
