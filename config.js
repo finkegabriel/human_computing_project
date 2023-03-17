@@ -1,5 +1,5 @@
 const baseConfig = {
-  hsyncServer: process.env.HUMAN_SERVER || 'ws://localhost:3101',
+  hsyncServer: 'ws://localhost:3101',
   hsyncSecret: process.env.HSYNC_SECRET, // keep it secret, keep it safe!
   localHost: process.env.LOCAL_HOST || 'localhost', // host of local server
   port: process.env.PORT || 3000, // port of local server
